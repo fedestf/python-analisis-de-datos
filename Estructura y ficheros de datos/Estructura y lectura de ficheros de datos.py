@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import openpyxl
 
 datos = {
 
@@ -57,4 +58,36 @@ df.to_csv('datos.csv')
 df2 = pd.read_csv('datos.csv', index_col=0)  # uso la columna 0 como indice
 print(df2.head())
 
-df.to_csv()
+# hago un nuevo csv que conserva los valores de los encabezados y coloca missing en los valroes vacios
+df.to_csv('nuevos datos.csv', header=True, na_rep='(missing)')
+df3 = pd.read_csv('nuevos datos.csv')
+print(df3)
+
+ti_da = {'POP': 'float32', 'AREA': 'float32', 'GDP': 'float32'}
+
+df3 = pd.read_csv('datos.csv',
+                  index_col=0,
+                  # convierto la fecha para poder cambiarla en el csv
+                  parse_dates=['IND_DAY'],
+                  dtype=ti_da)
+
+# creo csv con nuevo formato fecha
+df3.to_csv('datos fecha format.csv', date_format='%B %d,%Y')
+
+df4 = pd.read_csv('datos fecha format.csv',
+                  index_col=0)
+print(df4)
+
+# lectura de columnas especificas
+df5 = pd.read_csv('datos.csv',
+                  # especifico la columna indice y las demás
+                  usecols=[0, 1, 3, 5],
+                  index_col=0
+                  )
+print(df5)
+
+# metodo para comprimir
+df.to_csv('datos.csv.zip')
+# exportar data frame a excel
+
+df.to_excel('Excel datos.xlsx', sheet_name='paises')
