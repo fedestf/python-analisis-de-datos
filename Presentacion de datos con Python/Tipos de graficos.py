@@ -62,3 +62,68 @@ plt.title('Histograma acumulativo')
 plt.show()
 
 # Graficos apilados
+
+x = [1, 2, 3, 4, 5]
+y = [1, 1, 2, 3, 5]
+y2 = [0, 4, 2, 6, 8]
+y3 = [1, 3, 5, 7, 9]
+
+etiquetas = ['Sector privado', 'Sector publico', 'Sector informal']
+
+fig, panel = plt.subplots()
+
+panel.stackplot(x, y, y2, y3,
+                labels=etiquetas,
+                colors=['r', 'w', 'b'])
+
+panel.legend(loc='upper left')
+panel.set_title("Grafico apilado")
+plt.show()
+
+# Graficos de tortas
+
+etiquetas = ['Financiera', 'Salud', 'Construccion']
+sectores = [56, 66, 24]
+colores = ['c', 'g', 'r']
+
+plt.pie(sectores, labels=etiquetas, colors=colores,
+        startangle=90,  # angulo en el que arranca el grafico
+        explode=(0, 0, 0),  # Valores de cuanto quiero separar las partes
+        autopct='%1.2f',
+        shadow=True)  # cuandos decimales tienen los valores
+plt.axis('equal')  # partes iguales desde los ejes
+plt.title('Ejemplo de grafico torta')
+plt.show()
+
+# Grafico BoxPlot
+
+y1 = np.random.normal(100, 10, 100)
+y2 = np.random.normal(80, 30, 100)
+y3 = np.random.normal(90, 20, 100)
+y4 = np.random.normal(70, 25, 100)
+
+datos = [y1, y2, y3, y4]
+fig, panel = plt.subplots()
+
+panel.set_xticklabels(['Grupo_1', 'Grupo_2', 'Grupo_3', 'Grupo_4'])
+bp = panel.boxplot(datos, patch_artist=True)
+plt.title('Ejemplo de BoxPlot')
+# Elementos del BoxPlot
+for box in bp['boxes']:
+    box.set(color='r', linewidth=2)
+    box.set(facecolor='b')
+
+for whisker in bp['whiskers']:  # modifica los bigotes
+    whisker.set(color='g', linewidth=2)
+
+for cap in bp['caps']:
+    cap.set(color='black', linewidth=3)
+
+for median in bp['medians']:
+    median.set(color='#b2df8a', linewidth=2)
+
+for flier in bp['fliers']:
+    flier.set(marker='*', color='r', alpha=1)
+
+
+plt.show()
