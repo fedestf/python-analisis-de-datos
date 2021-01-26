@@ -125,5 +125,4 @@ for median in bp['medians']:
 for flier in bp['fliers']:
     flier.set(marker='*', color='r', alpha=1)
 
-
 plt.show()
